@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: persons-finder-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: persons.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: persons-finder-service
+                port:
+                  number: 80

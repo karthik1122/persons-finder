@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: persons-finder
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: persons-finder
+  template:
+    metadata:
+      labels:
+        app: persons-finder
+    spec:
+      containers:
+        - name: persons-finder
+          image: persons-finder:latest
+          ports:
+            - containerPort: 8080
+
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: openai-secret
+                  key: OPENAI_API_KEY
+
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            failureThreshold: 3

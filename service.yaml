@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: persons-finder-service
+spec:
+  selector:
+    app: persons-finder
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
