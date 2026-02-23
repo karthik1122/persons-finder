@@ -63,3 +63,4 @@ Submit your repository link. We care about:
 *   **Security:** How you handle the API Key.
 *   **Reliability:** Probes, Limits, Scaling.
 *   **AI Maturity:** Your `AI_LOG.md` (Did you blindly trust the bot, or did you engineer it?).
+*
